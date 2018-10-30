@@ -1,25 +1,30 @@
-public class Parser {
+package textTransformers.models;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
+@Repository
+public class TextParser {
 
     private String content;
 
-    public Parser(String content) {
-        this.content = content;
+    public TextParser() {
+       
     }
 
-    public int transform(){ // zamienia liczby na tekst
+    public void transform(){ // zamienia liczby na tekst
         String listed[] = this.content.split(" ");
         for (int i=0; i<listed.length; i++){
-            System.out.println(listed[i]);
+            //System.out.println(listed[i]);
             try {
                 int num = Integer.parseInt(listed[i]);
                 listed[i] = num2str(num);
             }catch (NumberFormatException ex){
                 continue;
             }
-            System.out.println(listed[i]);
+            //System.out.println(listed[i]);
         }
         this.content = String.join(" ",listed);
-        return 0;
     }
 
     private String num2str(int numberIn) {
