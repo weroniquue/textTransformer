@@ -3,6 +3,13 @@ package textTransformers.models;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+/**
+ * 
+ * String container
+ * 	capable of applying transformations
+ *	
+ */
+
 @Repository
 public class TextParser {
 
@@ -11,8 +18,14 @@ public class TextParser {
     public TextParser() {
        
     }
-
-    public void transform(){ // zamienia liczby na tekst
+    
+    
+    /**
+     * function for applying chosen transformations
+     *  ! not implemented yet !
+     *  + mysle, ze do Upper/lowercase/capitalize wystarczą nam ify w tej funkcji, bez dodatkowych f() but dunno
+     */
+    public void transform(){ 
         String listed[] = this.content.split(" ");
         for (int i=0; i<listed.length; i++){
             //System.out.println(listed[i]);
@@ -26,7 +39,11 @@ public class TextParser {
         }
         this.content = String.join(" ",listed);
     }
-
+    
+    /**
+     * transforms given number into words
+     * @param numberIn - int in range: 1 - 999,999,999
+     */
     private String num2str(int numberIn) {
         int digitsHundreds = numberIn%1000;  // "......***"
         numberIn /= 1000;
@@ -131,6 +148,33 @@ public class TextParser {
         return (resultMillions + " " + resultThousands + " " + resultHundreds).trim();
     }
 
+    /**
+     * Reverses letters and order of Upper/Lowercase in text
+     *  
+     */
+    public String reverse(String text) {
+    	//todo
+    }
+    
+    /**
+     * applies predefined abbreviations into text  (wtf help me here)
+     * 
+     */
+    public String abbreviate(String text) {
+    	//todo
+    }
+    
+    /**
+     * 
+     * 
+     * 
+     */
+    public String unAbbreviate(String text) {
+    	//todo
+    }
+    
+    
+    
     public String getContent() {
         return content;
     }
