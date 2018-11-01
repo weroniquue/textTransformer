@@ -152,26 +152,50 @@ public class TextParser {
      * Reverses letters and order of Upper/Lowercase in text
      *  
      */
-    public String reverse(String text) {
-    	//todo
+    
+    public String capitalize(String text) //changes just the first letter of a text to uppercase
+    {
+    	return text.substring(0, 1).toUpperCase() + text.substring(1);
+    }
+    
+    public String lower(String text) //changes the whole string to lowercase
+    {
+    	return text.toLowerCase();
+    }
+    
+    public String upper(String text) //changes the whole string to uppercase
+    {
+    	return text.toUpperCase();
+    }
+    
+    public String reverse(String text) 
+    {
+    	int len = text.length();
+    	StringBuilder text_reversed = new StringBuilder(len);
+    	for (int i = len - 1; i >= 0; i--)
+    	{
+    		text_reversed.append(text.charAt(i));
+    	}
+    	return text_reversed.toString();
     }
     
     /**
-     * applies predefined abbreviations into text  (wtf help me here)
+     * applies predefined abbreviations into text  (wtf help me here) 
+     * 
      * 
      */
-    public String abbreviate(String text) {
+    /*public String abbreviate(String text) {
     	//todo
-    }
+    }*/
     
     /**
      * 
      * 
      * 
      */
-    public String unAbbreviate(String text) {
+    /*public String unAbbreviate(String text) {
     	//todo
-    }
+    }*/
     
     
     
