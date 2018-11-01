@@ -1,5 +1,8 @@
 package textTransformers.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -171,10 +174,24 @@ public class TextParser {
     public String reverse(String text) 
     {
     	int len = text.length();
+    	List<Integer> pos = new ArrayList<Integer>();
     	StringBuilder text_reversed = new StringBuilder(len);
     	for (int i = len - 1; i >= 0; i--)
     	{
-    		text_reversed.append(text.charAt(i));
+    		if (Character.isUpperCase(text.charAt(i)))			//first, check if the letter is uppercase
+    		{
+    			pos.add(i);										//if it is, save its position to the list
+    		}
+    		char temp = Character.toLowerCase(text.charAt(i));	//then lowercase this letter
+    		text_reversed.append(temp);							//and add it to the new string
+    	}    	    	
+    	
+    	if (!pos.isEmpty())										//if the list of uppercases is not null, proceed
+    	{
+    		for (int i = 0; i < pos.size(); i++)
+    		{
+    		Character.toUpperCase(text_reversed.charAt(i));		//change the letter in the saved position to uppercase
+    		}
     	}
     	return text_reversed.toString();
     }
