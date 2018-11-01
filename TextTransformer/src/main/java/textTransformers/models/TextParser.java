@@ -190,7 +190,7 @@ public class TextParser {
     	{
     		for (int i = 0; i < pos.size(); i++)
     		{
-    		Character.toUpperCase(text_reversed.charAt(i));		//change the letter in the saved position to uppercase
+    		Character.toUpperCase(text_reversed.charAt(pos.get(i)));		//change the letter in the saved position to uppercase
     		}
     	}
     	return text_reversed.toString();
