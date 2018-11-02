@@ -32,6 +32,7 @@ public class TextParser {
      */
     public void transform(){ 
         String listed[] = this.content.split(" ");
+        String listed_capitalize[] = this.content.split(" ");
         for (int i=0; i<listed.length; i++){
             //System.out.println(listed[i]);
             try {
@@ -42,12 +43,29 @@ public class TextParser {
             }
             //System.out.println(listed[i]);
         }
+        for (int i = 0; i < listed_capitalize.length; i++)
+        {
+        	/*try
+        	{*/
+        		capitalize(listed_capitalize[i]);
+        	/*}
+        	catch (RuntimeException ex)
+        	{
+        		continue;
+        	}*/
+        }
+        
         this.content = String.join(" ",listed);
+        //this.content = String.join(" ", listed_capitalize);
+        this.content = this.unAbbreviate(this.content);
         this.content = this.abbreviate(this.content);
+        this.content = this.lower(this.content);
+        this.content = this.upper(this.content);
+        this.content = this.reverse(this.content);
     }
     
     /**
-     * transforms given number into words
+     * transforms given numbers into words
      * @param numberIn - int in range: 1 - 999,999,999
      */
     private String num2str(int numberIn) {
@@ -155,49 +173,74 @@ public class TextParser {
     }
 
     /**
-     * Reverses letters and order of Upper/Lowercase in text (?)
-     *  
+     * Capitalizes the first letter of each word
      */
     
-    public String capitalize(String text) //changes just the first letter of a text to uppercase
+    public String capitalize(String text) 
     {
-    	return text.substring(0, 1).toUpperCase() + text.substring(1);
+    	return text.substring(0, 1).toUpperCase() + text.substring(1) + " ";
     }
     
-    public String lower(String text) //changes the whole string to lowercase
+    /**
+     * Applies lowercase to the whole string
+     */
+    
+    public String lower(String text) 
     {
     	return text.toLowerCase();
     }
     
-    public String upper(String text) //changes the whole string to uppercase
+    /**
+     * Applies uppercase to the whole string
+     */
+    
+    public String upper(String text) 
     {
     	return text.toUpperCase();
     }
     
+    /**
+     * Reverses the whole string minding the position of lowercase and uppercase letters
+     */
+    
     public String reverse(String text) 
     {
     	int len = text.length();
-    	List<Integer> pos = new ArrayList<Integer>();
-    	StringBuilder text_reversed = new StringBuilder(len);
+    	List<Integer> pos = new ArrayList<Integer>(len);
+    	List<Character> char_list = new ArrayList<Character>(len);
     	for (int i = len - 1; i >= 0; i--)
     	{
-    		if (Character.isUpperCase(text.charAt(i)))			//first, check if the letter is uppercase
+    		if (Character.isUpperCase(text.charAt(i)))			
     		{
-    			pos.add(i);										//if it is, save its position to the list
+    			pos.add(i);
     		}
-    		char temp = Character.toLowerCase(text.charAt(i));	//then lowercase this letter
-    		text_reversed.append(temp);							//and add it to the new string
-    	}    	    	
+    		char temp = Character.toLowerCase(text.charAt(i));
+    		char_list.add(temp);
+    	} 	    	
+    	int j = 0;
     	
-    	if (!pos.isEmpty())										//if the list of uppercases is not null, proceed
+    	
+    	for (int i = char_list.size() - 1; i >= 0; i--)
     	{
-    		for (int i = 0; i < pos.size(); i++)
+    		if (i == pos.get(j))
     		{
-    		Character.toUpperCase(text_reversed.charAt(pos.get(i)));		//change the letter in the saved position to uppercase
+    			Character temp = Character.toUpperCase(char_list.get(i));
+    			char_list.set(i, temp);
+    			j++;
     		}
     	}
-    	return text_reversed.toString();
+    	
+    	StringBuilder builder = new StringBuilder(len);
+        
+    	for(Character ch: char_list)
+        {
+            builder.append(ch);
+        }
+        return builder.toString();
+    	
     }
+    
+    
     
     /**
      * applies predefined abbreviations into text 
@@ -206,8 +249,8 @@ public class TextParser {
     public String abbreviate(String text) {
         Map<String,String> map = new HashMap<String,String>();
         map.put("na przykład", "np.");
-        map.put("między innymi", "m. in.");
-        map.put("i tym podobnie", "itp.");
+        map.put("między innymi", "m.in.");
+        map.put("i tym podobne", "itp.");
         map.put("rozum i godność człowieka","rigcz");
         for (Map.Entry<String, String> entry : map.entrySet()) {
             int index = text.indexOf(entry.getKey());
@@ -220,13 +263,33 @@ public class TextParser {
     }
     
     /**
-     * 
+     * changes predefined abbreviations to full phrases
      * 
      * 
      */
-    /*public String unAbbreviate(String text) {
-    	//todo
-    }*/
+    public String unAbbreviate(String text) 
+    {
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("np.", "na przykład");
+    	map.put("m.in.", "między innymi");
+    	map.put("itp.", "i tym podobne");
+    	map.put("rigcz", "rozum i godność człowieka");
+    	
+    	for(Map.Entry<String, String> entry : map.entrySet()) 
+    	{
+    		int index = text.indexOf(entry.getKey());
+    		while (index >= 0)
+    		{
+    			text = text.replace(entry.getKey(), entry.getValue());
+                index = text.indexOf(entry.getKey());
+    		}
+    	    /*if (text == entry.getKey())
+    	    {
+    	    	text = text.replace(entry.getKey(), entry.getValue());
+    	    }*/
+    	}
+    	return text;
+    }
     
     
     
