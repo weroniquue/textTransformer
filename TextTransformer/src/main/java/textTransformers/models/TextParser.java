@@ -1,7 +1,9 @@
 package textTransformers.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,7 @@ public class TextParser {
             //System.out.println(listed[i]);
         }
         this.content = String.join(" ",listed);
+        this.content = this.abbreviate(this.content);
     }
     
     /**
@@ -152,7 +155,7 @@ public class TextParser {
     }
 
     /**
-     * Reverses letters and order of Upper/Lowercase in text
+     * Reverses letters and order of Upper/Lowercase in text (?)
      *  
      */
     
@@ -197,13 +200,24 @@ public class TextParser {
     }
     
     /**
-     * applies predefined abbreviations into text  (wtf help me here) 
-     * 
+     * applies predefined abbreviations into text 
      * 
      */
-    /*public String abbreviate(String text) {
-    	//todo
-    }*/
+    public String abbreviate(String text) {
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("na przykład", "np.");
+        map.put("między innymi", "m. in.");
+        map.put("i tym podobnie", "itp.");
+        map.put("rozum i godność człowieka","rigcz");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            int index = text.indexOf(entry.getKey());
+            while(index >= 0) {
+                text = text.replace(entry.getKey(), entry.getValue());
+                index = text.indexOf(entry.getKey());
+            }
+        }
+        return text;
+    }
     
     /**
      * 
