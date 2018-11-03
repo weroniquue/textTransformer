@@ -20,7 +20,7 @@ public class TextTransformerController {
 	@Autowired
 	private TextParser textParser;
 	
-	private List<String> availableFunctions = Arrays.asList("upper", "lower", "capitalize", "reverse", "num2String");
+	private List<String> availableFunctions = Arrays.asList("upper", "lower", "capitalize", "reverse", "num2String", "abbreviate", "unAbbreviate");
 	
 	
 
@@ -55,6 +55,12 @@ public class TextTransformerController {
 				break;
 			case "num2String":
 				textParser.num2StringTransform();
+				break;
+			case "abbreviate":
+				textParser.abbreviate();
+				break;
+			case "unAbbreviate":
+				textParser.unAbbreviate();
 				break;
 
 			default:
