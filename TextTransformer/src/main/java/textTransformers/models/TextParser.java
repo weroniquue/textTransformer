@@ -23,12 +23,7 @@ public class TextParser {
     }
     
     
-    /**
-     * function for applying chosen transformations
-     *  ! not implemented yet !
-     *  + mysle, ze do Upper/lowercase/capitalize wystarczą nam ify w tej funkcji, bez dodatkowych f() but dunno
-     */
-    public void transform(){ 
+    public void num2StringTransform(){ 
         String listed[] = this.content.split(" ");
         for (int i=0; i<listed.length; i++){
             //System.out.println(listed[i]);
@@ -156,33 +151,33 @@ public class TextParser {
      *  
      */
     
-    public String capitalize(String text) //changes just the first letter of a text to uppercase
+    public void capitalize() //changes just the first letter of a text to uppercase
     {
-    	return text.substring(0, 1).toUpperCase() + text.substring(1);
+    	this.content = this.content.substring(0, 1).toUpperCase() + this.content.substring(1);
     }
     
-    public String lower(String text) //changes the whole string to lowercase
+    public void lower() //changes the whole string to lowercase
     {
-    	return text.toLowerCase();
+    	this.content = this.content.toLowerCase();
     }
     
-    public String upper(String text) //changes the whole string to uppercase
+    public void upper() //changes the whole string to uppercase
     {
-    	return text.toUpperCase();
+    	this.content = this.content.toUpperCase();
     }
     
-    public String reverse(String text) 
+    public void reverse() 
     {
-    	int len = text.length();
+    	int len = this.content.length();
     	List<Integer> pos = new ArrayList<Integer>();
     	StringBuilder text_reversed = new StringBuilder(len);
     	for (int i = len - 1; i >= 0; i--)
     	{
-    		if (Character.isUpperCase(text.charAt(i)))			//first, check if the letter is uppercase
+    		if (Character.isUpperCase(this.content.charAt(i)))			//first, check if the letter is uppercase
     		{
     			pos.add(i);										//if it is, save its position to the list
     		}
-    		char temp = Character.toLowerCase(text.charAt(i));	//then lowercase this letter
+    		char temp = Character.toLowerCase(this.content.charAt(i));	//then lowercase this letter
     		text_reversed.append(temp);							//and add it to the new string
     	}    	    	
     	
@@ -193,7 +188,7 @@ public class TextParser {
     		Character.toUpperCase(text_reversed.charAt(pos.get(i)));		//change the letter in the saved position to uppercase
     		}
     	}
-    	return text_reversed.toString();
+    	this.content = text_reversed.toString();
     }
     
     /**
