@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 /**
  * 
@@ -137,6 +136,7 @@ public class TextParser {
 		int len = this.content.length();
 		List<Integer> pos = new ArrayList<Integer>(len);
 		List<Character> char_list = new ArrayList<Character>(len);
+		
 		for (int i = len - 1; i >= 0; i--) {
 			if (Character.isUpperCase(this.content.charAt(i))) {
 				pos.add(i);
@@ -144,6 +144,7 @@ public class TextParser {
 			char temp = Character.toLowerCase(this.content.charAt(i));
 			char_list.add(temp);
 		}
+		
 		int j = 0;
 
 		for (int i = char_list.size() - 1; i >= 0; i--) {
@@ -160,7 +161,8 @@ public class TextParser {
 			builder.append(ch);
 		}
 		this.content = builder.toString();
-
+		
+		
 	}
 
 	/**
