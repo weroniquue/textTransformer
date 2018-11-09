@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Repository;
 public class TextParser {
 
 	private String content;
-
+	static Logger logger = LoggerFactory.getLogger(TextParser.class);
 	public TextParser() {
 
 	}
@@ -25,14 +27,16 @@ public class TextParser {
 	public void num2StringTransform() {
 		String listed[] = this.content.split(" ");
 		for (int i = 0; i < listed.length; i++) {
-			// System.out.println(listed[i]);
+
 			try {
+				logger.info("Function which change numbers to string.");
 				int num = Integer.parseInt(listed[i]);
 				listed[i] = num2str(num);
 			} catch (NumberFormatException ex) {
+				logger.error("Catched NumberFormatException!");;
 				continue;
 			}
-			// System.out.println(listed[i]);
+
 		}
 		this.content = String.join(" ", listed);
 	}
@@ -109,6 +113,7 @@ public class TextParser {
 	 */
 
 	public void capitalize() {
+		logger.info("Changed string to capitalize.");
 		this.content = this.content.substring(0, 1).toUpperCase() + this.content.substring(1) + " ";
 	}
 
@@ -117,7 +122,9 @@ public class TextParser {
 	 */
 
 	public void lower() {
+		logger.info("Changed string to lower.");
 		this.content = this.content.toLowerCase();
+		
 	}
 
 	/**
@@ -125,6 +132,7 @@ public class TextParser {
 	 */
 
 	public void upper() {
+		logger.info("Changed string to upper.");
 		this.content = this.content.toUpperCase();
 	}
 
@@ -161,6 +169,7 @@ public class TextParser {
 			builder.append(ch);
 		}
 		this.content = builder.toString();
+		logger.info("Reversed string.");
 		
 		
 	}
