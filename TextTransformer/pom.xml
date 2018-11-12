@@ -43,6 +43,8 @@
 			<version>1.7.25</version>
 		</dependency>
 
+
+
 	</dependencies>
 
 	<properties>
@@ -63,6 +65,12 @@
 			</plugin>
 
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.7.1</version>
+			</plugin>
+
+			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>9.4.7.v20170914</version>
@@ -74,10 +82,19 @@
 					</httpConnector>
 				</configuration>
 			</plugin>
-
-
 		</plugins>
 	</build>
+
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.0.1</version>
+			</plugin>
+		</plugins>
+	</reporting>
 
 
 </project>
