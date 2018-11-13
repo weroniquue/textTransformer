@@ -1,6 +1,7 @@
 package textTransformers.models;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -228,6 +229,14 @@ public class TextParser {
                 index = this.content.indexOf(entry.getKey());
     		}
     	}
+    }
+    
+    public void encode() {
+    	this.content = Base64.getEncoder().encodeToString(this.content.getBytes());
+    }
+    
+    public void decode() {
+    	this.content = new String(Base64.getDecoder().decode(this.content.getBytes()));
     }
 
 	public String getContent() {
