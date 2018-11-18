@@ -186,7 +186,7 @@ public class TextParser {
         map.put("i tym podobne", "itp.");
         map.put("rozum i godność człowieka","rigcz");
         map.put("i tak dalej", "itd.");
-        map.put("magister", "mgr.");
+        map.put("magister", "mgr");
         map.put("pieczywo", "chleb i bułki");
         map.put("profesor", "prof.");
         map.put("jak wyżej", "jw.");
@@ -214,7 +214,7 @@ public class TextParser {
     	map.put("itp.", "i tym podobne");
     	map.put("rigcz", "rozum i godność człowieka");
     	map.put("itd.", "i tak dalej");
-        map.put("mgr.", "magister");
+        map.put("mgr", "magister");
         map.put("chleb i bułki", "pieczywo");
         map.put("prof.", "profesor");
         map.put("jw.", "jak wyżej");
