@@ -230,7 +230,20 @@ public class TextParser {
     		}
     	}
     }
-    
+    /**
+     * Transforms each char in content to its binary code
+     * 	8-digit binary codes are separated with spaces
+     */
+    public void encode_binary() {
+    	String result = "";
+        for (char c : this.getContent().toCharArray()){
+            String code = Integer.toBinaryString(c);
+            while (code.length() < 8) code = "0" + code;
+            result = result + " " + code;
+        }
+        this.setContent(result);
+
+    }
     public void encode() {
     	this.content = Base64.getEncoder().encodeToString(this.content.getBytes());
     }
