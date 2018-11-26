@@ -17,7 +17,7 @@ export class TextfieldsComponent implements OnInit {
   getOutputText(): void {
     //this.outputText = this.textService.getOutputText(); //call this in a function that responds on click instead of ngOnInit
   
-    this.textService.getOutputText().subscribe(outputText => this.outputText = outputText)
+    this.textService.getOutputText().subscribe(outputText => this.outputText = outputText);
   }
 
   inputText: string;
