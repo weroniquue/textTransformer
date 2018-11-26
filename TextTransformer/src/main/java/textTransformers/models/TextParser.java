@@ -5,6 +5,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ public class TextParser {
 
 	private String content;
 	static Logger logger = LoggerFactory.getLogger(TextParser.class);
+
 	public TextParser() {
 
 	}
@@ -34,7 +36,8 @@ public class TextParser {
 				int num = Integer.parseInt(listed[i]);
 				listed[i] = num2str(num);
 			} catch (NumberFormatException ex) {
-				logger.error("Catched NumberFormatException!");;
+				logger.error("Catched NumberFormatException!");
+				;
 				continue;
 			}
 
@@ -125,7 +128,7 @@ public class TextParser {
 	public void lower() {
 		logger.info("Changed string to lower.");
 		this.content = this.content.toLowerCase();
-		
+
 	}
 
 	/**
@@ -142,102 +145,87 @@ public class TextParser {
 	 * letters
 	 */
 	public void reverse() {
-		int len = this.content.length();
-		List<Integer> pos = new ArrayList<Integer>(len);
-		List<Character> char_list = new ArrayList<Character>(len);
-		
-		for (int i = len - 1; i >= 0; i--) {
-			if (Character.isUpperCase(this.content.charAt(i))) {
-				pos.add(i);
+	
+		List<Integer> pos = new ArrayList<Integer>(this.content.length());
+		List<Character> chars = this.content.chars().mapToObj(e -> (char) e).collect(Collectors.toList());
+		chars.forEach(x -> {
+			if (Character.isUpperCase(x)) {
+				pos.add(chars.indexOf(x));
 			}
-			char temp = Character.toLowerCase(this.content.charAt(i));
-			char_list.add(temp);
-		}
-		
-		int j = 0;
+		});
 
-		for (int i = char_list.size() - 1; i >= 0; i--) {
-			if (i == pos.get(j)) {
-				Character temp = Character.toUpperCase(char_list.get(i));
-				char_list.set(i, temp);
-				j++;
-			}
-		}
+		this.content = new StringBuilder(this.content).reverse().toString().toLowerCase();
 
-		StringBuilder builder = new StringBuilder(len);
+		pos.forEach(x -> this.content = this.content.replaceFirst(Character.toString(this.content.charAt(x)),
+				Character.toString(Character.toUpperCase(this.content.charAt(x)))));
 
-		for (Character ch : char_list) {
-			builder.append(ch);
-		}
-		this.content = builder.toString();
-		logger.info("Reversed string.");
-		
-		
 	}
 
 	/**
-     * applies predefined abbreviations into text 
-     * 
-     */
-    public void abbreviate() {
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("na przykład", "np.");
-        map.put("między innymi", "m.in.");
-        map.put("i tym podobne", "itp.");
-        map.put("rozum i godność człowieka","rigcz");
-        map.put("i tak dalej", "itd.");
-        map.put("magister", "mgr.");
-        map.put("pieczywo", "chleb i bułki");
-        map.put("profesor", "prof.");
-        map.put("jak wyżej", "jw.");
-        map.put("święty", "św.");
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            int index = this.content.indexOf(entry.getKey());
-            while(index >= 0) {
-            	this.content = this.content.replace(entry.getKey(), entry.getValue());
-                index = this.content.indexOf(entry.getKey());
-            }
-        }
-        
-    }
-    
-    /**
-     * changes predefined abbreviations to full phrases
-     * 
-     * 
-     */
-    public void unAbbreviate() 
-    {
-    	Map<String, String> map = new HashMap<String, String>();
-    	map.put("np.", "na przykład");
-    	map.put("m.in.", "między innymi");
-    	map.put("itp.", "i tym podobne");
-    	map.put("rigcz", "rozum i godność człowieka");
-    	map.put("itd.", "i tak dalej");
-        map.put("mgr.", "magister");
-        map.put("chleb i bułki", "pieczywo");
-        map.put("prof.", "profesor");
-        map.put("jw.", "jak wyżej");
-        map.put("św.", "święty");
-    	
-    	for(Map.Entry<String, String> entry : map.entrySet()) 
-    	{
-    		int index = this.content.indexOf(entry.getKey());
-    		while (index >= 0)
-    		{
-    			this.content = this.content.replace(entry.getKey(), entry.getValue());
-                index = this.content.indexOf(entry.getKey());
-    		}
-    	}
-    }
-    
-    public void encode() {
-    	this.content = Base64.getEncoder().encodeToString(this.content.getBytes());
-    }
-    
-    public void decode() {
-    	this.content = new String(Base64.getDecoder().decode(this.content.getBytes()));
-    }
+	 * applies predefined abbreviations into text
+	 * 
+	 */
+	public void abbreviate() {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("na przykład", "np.");
+		map.put("między innymi", "m.in.");
+		map.put("i tym podobne", "itp.");
+		map.put("rozum i godność człowieka", "rigcz");
+		map.put("i tak dalej", "itd.");
+		map.put("magister", "mgr.");
+		map.put("pieczywo", "chleb i bułki");
+		map.put("profesor", "prof.");
+		map.put("jak wyżej", "jw.");
+		map.put("święty", "św.");
+		for (Map.Entry<String, String> entry : map.entrySet()) {
+			int index = this.content.indexOf(entry.getKey());
+			while (index >= 0) {
+				this.content = this.content.replace(entry.getKey(), entry.getValue());
+				index = this.content.indexOf(entry.getKey());
+			}
+		}
+
+	}
+
+	/**
+	 * changes predefined abbreviations to full phrases
+	 * 
+	 * 
+	 */
+	public void unAbbreviate() {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("np.", "na przykład");
+		map.put("m.in.", "między innymi");
+		map.put("itp.", "i tym podobne");
+		map.put("rigcz", "rozum i godność człowieka");
+		map.put("itd.", "i tak dalej");
+		map.put("mgr.", "magister");
+		map.put("chleb i bułki", "pieczywo");
+		map.put("prof.", "profesor");
+		map.put("jw.", "jak wyżej");
+		map.put("św.", "święty");
+
+		for (Map.Entry<String, String> entry : map.entrySet()) {
+			int index = this.content.indexOf(entry.getKey());
+			while (index >= 0) {
+				this.content = this.content.replace(entry.getKey(), entry.getValue());
+				index = this.content.indexOf(entry.getKey());
+			}
+		}
+	}
+
+	public void encode() {
+		this.content = Base64.getEncoder().encodeToString(this.content.getBytes());
+	}
+
+	public void decode() {
+		this.content = new String(Base64.getDecoder().decode(this.content.getBytes()));
+	}
+
+	public void latexFormat() {
+		this.content = this.content.replace("$", "\\$");
+		// System.out.println(this.getContent());
+	}
 
 	public String getContent() {
 		return content;
