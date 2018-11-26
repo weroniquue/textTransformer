@@ -15,10 +15,15 @@ export class TextfieldsComponent implements OnInit {
   }
 
   getOutputText(): void {
-    this.outputText = this.textService.getOutputText(); //call this in a function that responds on click instead of ngOnInit
+    //this.outputText = this.textService.getOutputText(); //call this in a function that responds on click instead of ngOnInit
+  
+    this.textService.getOutputText().subscribe(outputText => this.outputText = outputText)
   }
 
   inputText: string;
   outputText: string;
 
+
+
+  // request wyglada tak: http://localhost:8080/TextTransformer/transform?text=aaa&function=upper
 }
