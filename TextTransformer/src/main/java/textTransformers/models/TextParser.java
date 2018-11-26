@@ -161,67 +161,83 @@ public class TextParser {
 
 	}
 
-	/**
-	 * applies predefined abbreviations into text
-	 * 
-	 */
-	public void abbreviate() {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("na przykład", "np.");
-		map.put("między innymi", "m.in.");
-		map.put("i tym podobne", "itp.");
-		map.put("rozum i godność człowieka", "rigcz");
-		map.put("i tak dalej", "itd.");
-		map.put("magister", "mgr.");
-		map.put("pieczywo", "chleb i bułki");
-		map.put("profesor", "prof.");
-		map.put("jak wyżej", "jw.");
-		map.put("święty", "św.");
-		for (Map.Entry<String, String> entry : map.entrySet()) {
-			int index = this.content.indexOf(entry.getKey());
-			while (index >= 0) {
-				this.content = this.content.replace(entry.getKey(), entry.getValue());
-				index = this.content.indexOf(entry.getKey());
-			}
-		}
+	
+     /* applies predefined abbreviations into text 
+     * 
+     */
+    public void abbreviate() {
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("na przykład", "np.");
+        map.put("między innymi", "m.in.");
+        map.put("i tym podobne", "itp.");
+        map.put("rozum i godność człowieka","rigcz");
+        map.put("i tak dalej", "itd.");
+        map.put("magister", "mgr");
+        map.put("pieczywo", "chleb i bułki");
+        map.put("profesor", "prof.");
+        map.put("jak wyżej", "jw.");
+        map.put("święty", "św.");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            int index = this.content.indexOf(entry.getKey());
+            while(index >= 0) {
+            	this.content = this.content.replace(entry.getKey(), entry.getValue());
+                index = this.content.indexOf(entry.getKey());
+            }
+        }
+        
+    }
+    
+    /**
+     * changes predefined abbreviations to full phrases
+     * 
+     * 
+     */
+    public void unAbbreviate() 
+    {
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("np.", "na przykład");
+    	map.put("m.in.", "między innymi");
+    	map.put("itp.", "i tym podobne");
+    	map.put("rigcz", "rozum i godność człowieka");
+    	map.put("itd.", "i tak dalej");
+        map.put("mgr", "magister");
+        map.put("chleb i bułki", "pieczywo");
+        map.put("prof.", "profesor");
+        map.put("jw.", "jak wyżej");
+        map.put("św.", "święty");
+    	
+    	for(Map.Entry<String, String> entry : map.entrySet()) 
+    	{
+    		int index = this.content.indexOf(entry.getKey());
+    		while (index >= 0)
+    		{
+    			this.content = this.content.replace(entry.getKey(), entry.getValue());
+                index = this.content.indexOf(entry.getKey());
+    		}
+    	}
+    }
+    /**
+     * Transforms each char in content to its binary code
+     * 	8-digit binary codes are separated with spaces
+     */
+    public void encode_binary() {
+    	String result = "";
+        for (char c : this.getContent().toCharArray()){
+            String code = Integer.toBinaryString(c);
+            while (code.length() < 8) code = "0" + code;
+            result = result + " " + code;
+        }
+        this.setContent(result);
 
-	}
-
-	/**
-	 * changes predefined abbreviations to full phrases
-	 * 
-	 * 
-	 */
-	public void unAbbreviate() {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("np.", "na przykład");
-		map.put("m.in.", "między innymi");
-		map.put("itp.", "i tym podobne");
-		map.put("rigcz", "rozum i godność człowieka");
-		map.put("itd.", "i tak dalej");
-		map.put("mgr.", "magister");
-		map.put("chleb i bułki", "pieczywo");
-		map.put("prof.", "profesor");
-		map.put("jw.", "jak wyżej");
-		map.put("św.", "święty");
-
-		for (Map.Entry<String, String> entry : map.entrySet()) {
-			int index = this.content.indexOf(entry.getKey());
-			while (index >= 0) {
-				this.content = this.content.replace(entry.getKey(), entry.getValue());
-				index = this.content.indexOf(entry.getKey());
-			}
-		}
-	}
-
-	public void encode() {
-		this.content = Base64.getEncoder().encodeToString(this.content.getBytes());
-	}
-
-	public void decode() {
-		this.content = new String(Base64.getDecoder().decode(this.content.getBytes()));
-	}
-
+    }
+    public void encode() {
+    	this.content = Base64.getEncoder().encodeToString(this.content.getBytes());
+    }
+    
+    public void decode() {
+    	this.content = new String(Base64.getDecoder().decode(this.content.getBytes()));
+    }
+    
 	public void latexFormat() {
 		this.content = this.content.replace("$", "\\$");
 		// System.out.println(this.getContent());
