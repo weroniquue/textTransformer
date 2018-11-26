@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import textTransformers.models.TextParser;
 import textTransformers.payload.ApiResponse;
 import textTransformers.payload.TextResponse;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class TextTransformerController {
 
