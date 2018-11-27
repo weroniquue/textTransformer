@@ -6,15 +6,11 @@ import {TextTransformed} from './models/text-transformed';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Access-Control-Allow-Origin': '*'
-  })
-};
-
-const httpOp = {
-  headers: new HttpHeaders({
+    'Access-Control-Allow-Origin': '*',
     'Content-type' : 'application/json'
   })
 };
+
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +23,7 @@ export class TextService {
 
   getOutputText(): Observable<TextTransformed> {
     //return of('przykladowy output');
-    console.log(this.http.get<TextTransformed>('http://localhost:8080/TextTransformer/transform?text=abc&function=upper', httpOp));
-    return this.http.get<TextTransformed>('http://localhost:8080/TextTransformer/transform?text=abc&function=upper', httpOp);
+    return this.http.get<TextTransformed>('http://localhost:8080/TextTransformer/transform?text=abc&function=upper', httpOptions);
       //.pipe(catchError(this.handleError('getOutputText', []))
     //);
   }

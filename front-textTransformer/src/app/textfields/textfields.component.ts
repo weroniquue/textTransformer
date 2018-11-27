@@ -9,6 +9,9 @@ import {TextTransformed} from '../models/text-transformed';
 })
 export class TextfieldsComponent implements OnInit {
 
+  inputText: string;
+  outputText: TextTransformed;
+
   constructor(private textService: TextService) { }
 
   ngOnInit() {
@@ -20,9 +23,6 @@ export class TextfieldsComponent implements OnInit {
   
     this.textService.getOutputText().subscribe(outputText => this.outputText = outputText);
   }
-
-  inputText: string;
-  outputText: TextTransformed;
 
 
 

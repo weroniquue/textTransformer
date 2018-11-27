@@ -1,3 +1,9 @@
 export class TextTransformed {
-  textTransformed: String;
+  textTransformed: string;
+
+  constructor(text: string) {
+    this.textTransformed = text;
+  }
+
+
 }
