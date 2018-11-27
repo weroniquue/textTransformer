@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TextService } from '../text.service';
+import {TextTransformed} from '../models/text-transformed';
 
 @Component({
   selector: 'app-textfields',
@@ -21,7 +22,7 @@ export class TextfieldsComponent implements OnInit {
   }
 
   inputText: string;
-  outputText: string;
+  outputText: TextTransformed;
 
 
 

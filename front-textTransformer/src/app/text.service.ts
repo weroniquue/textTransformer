@@ -2,12 +2,19 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import {TextTransformed} from './models/text-transformed';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Access-Control-Allow-Origin': '*'
   })
-}
+};
+
+const httpOp = {
+  headers: new HttpHeaders({
+    'Content-type' : 'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +25,10 @@ export class TextService {
     //private textService: TextService
     ) { }
 
-  getOutputText(): Observable<string> {
+  getOutputText(): Observable<TextTransformed> {
     //return of('przykladowy output');
-    return this.http.get<string>('http://localhost:8080/TextTransformer/transform?text=abc&function=upper', httpOptions);
+    console.log(this.http.get<TextTransformed>('http://localhost:8080/TextTransformer/transform?text=abc&function=upper', httpOp));
+    return this.http.get<TextTransformed>('http://localhost:8080/TextTransformer/transform?text=abc&function=upper', httpOp);
       //.pipe(catchError(this.handleError('getOutputText', []))
     //);
   }
