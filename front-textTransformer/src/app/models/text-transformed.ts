@@ -5,5 +5,4 @@ export class TextTransformed {
     this.textTransformed = text;
   }
 
-
 }
