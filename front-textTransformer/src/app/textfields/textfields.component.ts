@@ -32,8 +32,8 @@ export class TextfieldsComponent implements OnInit {
     this.selectedFunction = "reverse";
   }
 
-  onButtonClick(chosenFunction: string, inputText: string) {
-    this.transform(chosenFunction, inputText);
+  reuseOutput() {
+    this.inputText = this.outputText.textTransformed;
   }
 
   transform(chosenFunction: string, inputText: string) {

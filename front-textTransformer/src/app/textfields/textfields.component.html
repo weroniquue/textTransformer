@@ -2,7 +2,7 @@
 
   <div class="col-sm-4">
     <h3>Input:</h3>
-    <textarea [(ngModel)]="inputText">place your input here</textarea>
+    <textarea [(ngModel)]="inputText"></textarea>
   </div>
   
   <div class="col-sm-4">  
@@ -14,12 +14,13 @@
       </option>
     </select><br /><br />
 
-    <button (click)="onButtonClick(selectedFunction, inputText)">Let's transform</button>
+    <button (click)="transform(selectedFunction, inputText)">Let's transform</button><br /><br />
+    <button (click)="reuseOutput()">Use output as input</button>
   </div>
 
   <div class="col-sm-4">
     <h3>Output:</h3>
-    
+
     <div class="output" *ngIf="outputText">
       {{outputText.textTransformed}}
     </div>
