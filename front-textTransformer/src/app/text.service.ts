@@ -23,7 +23,7 @@ export class TextService {
 
   getOutputText(): Observable<TextTransformed> {
     //return of('przykladowy output');
-    return this.http.get<TextTransformed>('http://localhost:8080/TextTransformer/transform?text=abc&function=upper', httpOptions);
+    return this.http.get<TextTransformed>('http://localhost:8080/TextTransformer/transform?text=abcd&function=reverse', httpOptions);
       //.pipe(catchError(this.handleError('getOutputText', []))
     //);
   }
