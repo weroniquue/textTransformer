@@ -1,28 +1,28 @@
 <div class="row">
+
   <div class="col-sm-4">
     <h3>Input:</h3>
-    <textarea class="input">place your input here</textarea><br />
-    <!--<input [(ngModel)]="inputText" placeholder="place your input here"> -->
+    <textarea [(ngModel)]="inputText">place your input here</textarea>
   </div>
-  <div class="col-sm-4">
-    
+  
+  <div class="col-sm-4">  
     <h4>Choose a function:</h4>
-
-    <!-- [(ngModel)]="selectedOption" -->
     
-    <select type="text" [(ngModel)]="selectedFunctionModel">
-      <option *ngFor="let f of functionsStr">
+    <select type="text" [(ngModel)]="selectedFunction">
+      <option *ngFor="let f of functions">
          {{f}}
       </option>
     </select><br /><br />
 
-    <button (click)="onButtonClick(selectedFunctionModel)">Let's transform</button>
-
+    <button (click)="onButtonClick(selectedFunction, inputText)">Let's transform</button>
   </div>
+
   <div class="col-sm-4">
     <h3>Output:</h3>
-    <div class="output" *ngIf = "outputText">
+    
+    <div class="output" *ngIf="outputText">
       {{outputText.textTransformed}}
     </div>
   </div>
+
 </div>
