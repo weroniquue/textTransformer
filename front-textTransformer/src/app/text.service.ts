@@ -17,15 +17,10 @@ const httpOptions = {
 })
 export class TextService {
 
-  constructor( private http: HttpClient//,
-    //private textService: TextService
-    ) { }
+  constructor(private http: HttpClient) { }
 
   getOutputText(): Observable<TextTransformed> {
-    //return of('przykladowy output');
     return this.http.get<TextTransformed>('http://localhost:8080/TextTransformer/transform?text=abcd&function=reverse', httpOptions);
-      //.pipe(catchError(this.handleError('getOutputText', []))
-    //);
   }
 
 }

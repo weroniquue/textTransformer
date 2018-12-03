@@ -12,23 +12,35 @@ export class TextfieldsComponent implements OnInit {
   inputText: string;
   outputText: TextTransformed;
 
+  selectedFunction: string;
+
+  functionsStr: string[] = [
+    'upper',
+    'lower',
+    'capitalize',
+    'reverse',
+    'num2StringTransform',
+    'abbreviate',
+    'encode',
+    'decode'
+  ]
+
   constructor(private textService: TextService) { }
 
   ngOnInit() {
+    this.selectedFunction = this.functionsStr[0];
     this.getOutputText();
   }
 
   onButtonClick() {
-    this.outputText.textTransformed += '.';
+    //this.getOutputText();
+    //this.selectedFunction = ???
+    this.outputText.textTransformed += '.' + this.selectedFunction;
   }
 
-  getOutputText(): void {
-    //this.outputText = this.textService.getOutputText(); //call this in a function that responds on click instead of ngOnInit
-  
+  getOutputText(): void { 
     this.textService.getOutputText().subscribe(outputText => this.outputText = outputText);
   }
 
-
-
-  // request wyglada tak: http://localhost:8080/TextTransformer/transform?text=aaa&function=upper
+  // przykładowy request: http://localhost:8080/TextTransformer/transform?text=aaa&function=upper
 }

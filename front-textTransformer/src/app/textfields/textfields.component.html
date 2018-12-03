@@ -5,19 +5,19 @@
     <!--<input [(ngModel)]="inputText" placeholder="place your input here"> -->
   </div>
   <div class="col-sm-4">
+    
     <h4>Choose a function:</h4>
-    <select>
-      <option value="upper">upper</option>
-      <option value="lower">lower</option>
-      <option value="capitalize">capitalize</option>
-      <option value="reverse">reverse</option>
-      <option value="num2StringTransform">num2StringTransform</option>
-      <option value="abbreviate">abbreviate</option>
-      <option value="unAbbreviate">unAbbreviate</option>
-      <option value="encode">encode</option>
-      <option value="decode">decode</option>
+
+    <!-- [(ngModel)]="selectedOption" -->
+    
+    <select type="text" ng-model="this.selectedFunctionStr">
+      <option *ngFor="let f of functionsStr">
+         {{f}}
+      </option>
     </select><br /><br />
-    <button (click)="onButtonClick()">click</button>
+
+    <button (click)="onButtonClick()">Let's transform</button>
+
   </div>
   <div class="col-sm-4">
     <h3>Output:</h3>
