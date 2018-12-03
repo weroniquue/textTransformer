@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TextService } from '../text.service';
-import {TextTransformed} from '../models/text-transformed';
+import { TextTransformed } from '../models/text-transformed';
 
 @Component({
   selector: 'app-textfields',
@@ -16,6 +16,10 @@ export class TextfieldsComponent implements OnInit {
 
   ngOnInit() {
     this.getOutputText();
+  }
+
+  onButtonClick() {
+    this.outputText.textTransformed += '.';
   }
 
   getOutputText(): void {

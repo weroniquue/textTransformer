@@ -2,6 +2,7 @@
   <div class="col-sm-4">
     <h3>Input:</h3>
     <textarea class="input">place your input here</textarea><br />
+    <!--<input [(ngModel)]="inputText" placeholder="place your input here"> -->
   </div>
   <div class="col-sm-4">
     <h4>Choose a function:</h4>
@@ -16,7 +17,7 @@
       <option value="encode">encode</option>
       <option value="decode">decode</option>
     </select><br /><br />
-    <button>click</button>
+    <button (click)="onButtonClick()">click</button>
   </div>
   <div class="col-sm-4">
     <h3>Output:</h3>
