@@ -10,13 +10,13 @@
 
     <!-- [(ngModel)]="selectedOption" -->
     
-    <select type="text" ng-model="this.selectedFunctionStr">
+    <select type="text" [(ngModel)]="selectedFunctionModel">
       <option *ngFor="let f of functionsStr">
          {{f}}
       </option>
     </select><br /><br />
 
-    <button (click)="onButtonClick()">Let's transform</button>
+    <button (click)="onButtonClick(selectedFunctionModel)">Let's transform</button>
 
   </div>
   <div class="col-sm-4">

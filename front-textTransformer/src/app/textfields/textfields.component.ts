@@ -11,8 +11,9 @@ export class TextfieldsComponent implements OnInit {
 
   inputText: string;
   outputText: TextTransformed;
-
+  requestPath: string;
   selectedFunction: string;
+  selectedFunctionModel: string;
 
   functionsStr: string[] = [
     'upper',
@@ -28,18 +29,22 @@ export class TextfieldsComponent implements OnInit {
   constructor(private textService: TextService) { }
 
   ngOnInit() {
-    this.selectedFunction = this.functionsStr[0];
-    this.getOutputText();
+    this.selectedFunctionModel = "upper";
   }
 
-  onButtonClick() {
-    //this.getOutputText();
-    //this.selectedFunction = ???
-    this.outputText.textTransformed += '.' + this.selectedFunction;
+  onButtonClick(chosenFunction: string) {
+    this.selectedFunction = chosenFunction;
+    //Tu przekazujesz tez input dla przykladu
+    this.getOutputText(this.selectedFunction, "aaaaa");
+    //this.outputText.textTransformed += '.' + this.selectedFunction;
+
   }
 
-  getOutputText(): void { 
-    this.textService.getOutputText().subscribe(outputText => this.outputText = outputText);
+  getOutputText(selecectedFunction:string, inputText: string): void {
+    console.log(this.selectedFunction, inputText);
+    this.requestPath = 'text=' + inputText+'&function=' + this.selectedFunction;
+    console.log(this.requestPath)
+    this.textService.getOutputText(this.requestPath).subscribe(outputText => this.outputText = outputText);
   }
 
   // przykładowy request: http://localhost:8080/TextTransformer/transform?text=aaa&function=upper
