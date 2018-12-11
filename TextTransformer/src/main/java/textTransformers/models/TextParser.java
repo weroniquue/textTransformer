@@ -217,11 +217,30 @@ public class TextParser {
     		}
     	}
     }
+    
+    /**
+     * transforms this.content removing all duplicates of word in its neighbourhood
+     * leaves 1 occurrence of a word duplicated many times (case-sensitive)
+     * words are separated with spaces
+     * example : "a a b b a b B" -> "a b a b B"
+     */
+    public void removeDuplicates(){
+        String listed[] = this.content.split(" ");
+        String result = listed[0];
+        for (int i = 1; i < listed.length; i++) {
+
+            if (!(listed[i].equals(listed[i - 1])) ) {
+                result = result + " " + listed[i];
+            }
+
+        }
+        this.setContent(result);
+    }
     /**
      * Transforms each char in content to its binary code
      * 	8-digit binary codes are separated with spaces
      */
-    public void encode_binary() {
+    public void encodeBinary() {
     	String result = "";
         for (char c : this.getContent().toCharArray()){
             String code = Integer.toBinaryString(c);
@@ -240,7 +259,7 @@ public class TextParser {
      * Each 8-digit binary representation of a letter must be separated with a space
      */
     
-    public void decode_binary()
+    public void decodeBinary()
     {
     	String result = "";
     	for (int i = 0; i < this.getContent().length(); i+=9)

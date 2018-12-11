@@ -30,7 +30,7 @@ public class TextTransformerController {
 	private String message;
 
 	private List<String> availableFunctions = Arrays.asList("upper", "lower", "capitalize", "reverse", "num2String",
-			"abbreviate", "unAbbreviate", "encode", "decode");
+			"abbreviate", "unAbbreviate", "encode", "decode", "encodeBinary", "removeDuplicates");
 
 	static Logger logger = LoggerFactory.getLogger(TextTransformerController.class);
 
@@ -77,6 +77,12 @@ public class TextTransformerController {
 				break;
 			case "unAbbreviate":
 				textParser.unAbbreviate();
+				break;
+			case "removeDuplicates":
+				textParser.removeDuplicates();
+				break;
+			case "encodeBinary":
+				textParser.encodeBinary();
 				break;
 			case "encode":
 				textParser.encode();
