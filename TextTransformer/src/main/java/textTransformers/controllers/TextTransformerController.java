@@ -2,21 +2,29 @@ package textTransformers.controllers;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import textTransformers.models.Abbreviate;
+import textTransformers.models.Capitalize;
+import textTransformers.models.DecodePassword;
+import textTransformers.models.Decorator;
+import textTransformers.models.EncodeBinary;
+import textTransformers.models.EncodePassword;
+import textTransformers.models.Lowercase;
+import textTransformers.models.Num2String;
+import textTransformers.models.RemoveDuplicates;
+import textTransformers.models.Reverse;
 import textTransformers.models.TextParser;
+import textTransformers.models.UnAbbreviate;
+import textTransformers.models.Uppercase;
 import textTransformers.payload.ApiResponse;
 import textTransformers.payload.TextResponse;
 
@@ -24,8 +32,6 @@ import textTransformers.payload.TextResponse;
 @RestController
 public class TextTransformerController {
 
-	@Autowired
-	private TextParser textParser;
 
 	private String message;
 
@@ -37,11 +43,15 @@ public class TextTransformerController {
 	@RequestMapping("/transform")
 	public ResponseEntity<?> transform(@RequestParam(value = "text", required = false) String text,
 			@RequestParam(value = "function", required = false) String function) {
+		
+		
 		if (text == "" || text == null) {
 			logger.info("Empty text");
 			return new ResponseEntity<>(new ApiResponse(false, "Empty string!"), HttpStatus.BAD_REQUEST);
 		} else {
-			textParser.setContent(text);
+			
+			Decorator decorator= new Decorator(new TextParser(text));
+			
 			logger.info("Text set to: {}.", text);
 			if (function == "" || function == null) {
 				return new ResponseEntity<>(new ApiResponse(false, "You have to choose transformation function!"),
@@ -58,57 +68,45 @@ public class TextTransformerController {
 
 			switch (function) {
 			case "upper":
-				textParser.upper();
+				decorator = new Uppercase(decorator);
 				break;
 			case "lower":
-				textParser.lower();
+				decorator = new Lowercase(decorator);
 				break;
 			case "capitalize":
-				textParser.capitalize();
+				decorator = new Capitalize(decorator);
 				break;
 			case "reverse":
-				textParser.reverse();
+				decorator = new Reverse(decorator);
 				break;
 			case "num2String":
-				textParser.num2StringTransform();
+				decorator = new Num2String(decorator);
 				break;
 			case "abbreviate":
-				textParser.abbreviate();
+				decorator = new Abbreviate(decorator);
 				break;
 			case "unAbbreviate":
-				textParser.unAbbreviate();
+				decorator = new UnAbbreviate(decorator);
 				break;
 			case "removeDuplicates":
-				textParser.removeDuplicates();
+				decorator = new RemoveDuplicates(decorator);
 				break;
 			case "encodeBinary":
-				textParser.encodeBinary();
+				decorator = new EncodeBinary(decorator);
 				break;
 			case "encode":
-				textParser.encode();
+				decorator = new EncodePassword(decorator);
 				break;
 			case "decode":
-				textParser.decode();
+				decorator = new DecodePassword(decorator);
 				break;
 			default:
 				break;
 			}
-			return new ResponseEntity<>(new TextResponse(textParser.getContent()), HttpStatus.OK);
+			return new ResponseEntity<>(new TextResponse(decorator.transform()), HttpStatus.OK);
 		}
 	}
 
-	@PostMapping("/latexFormat")
-	public ResponseEntity<?> transformToLatexFormat(@RequestBody Map<String, String> payload) {
-		if (payload.get("text") == null) {
-			return new ResponseEntity<>(new ApiResponse(false, "Bad request!"), HttpStatus.BAD_REQUEST);
-		} else if (payload.get("text") == "" || payload.get("text") == null) {
-			logger.info("Empty text");
-			return new ResponseEntity<>(new ApiResponse(false, "Empty string!"), HttpStatus.BAD_REQUEST);
-		} else {
-			textParser.setContent(payload.get("text"));
-			textParser.latexFormat();
-			return new ResponseEntity<>(new TextResponse(textParser.getContent()), HttpStatus.OK);
-		}
-	}
+	
 
 }
