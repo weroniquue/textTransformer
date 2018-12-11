@@ -162,7 +162,8 @@ public class TextParser {
 	}
 
 	
-     /* applies predefined abbreviations into text 
+     /**
+      *  applies predefined abbreviations into text 
      * 
      */
     public void abbreviate() {
@@ -228,10 +229,28 @@ public class TextParser {
             result = result + " " + code;
         }
         this.setContent(result);
-
+        
     }
     public void encode() {
     	this.content = Base64.getEncoder().encodeToString(this.content.getBytes());
+    }
+    
+    /**
+     * Transforms given binary code to a String with corresponding letters
+     * Each 8-digit binary representation of a letter must be separated with a space
+     */
+    
+    public void decode_binary()
+    {
+    	String result = "";
+    	for (int i = 0; i < this.getContent().length(); i+=9)
+    	{
+    		String code = this.getContent().substring(i, i+8);
+    		int number = Integer.parseInt(code, 2);
+    		char letter = (char) number;
+    		result = result + letter;
+    	}
+    	this.setContent(result);
     }
     
     public void decode() {
