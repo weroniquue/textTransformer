@@ -1,5 +1,9 @@
 package textTransformers.models;
 
+
+/*
+ * Pattern class 
+ * */
 public class Decorator implements ITextParser{
 	
 	protected ITextParser input;

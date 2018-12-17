@@ -2,7 +2,6 @@ package textTransformers.controllers;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +31,10 @@ import textTransformers.models.Uppercase;
 import textTransformers.payload.ApiResponse;
 import textTransformers.payload.TextResponse;
 
+/**
+ * Controller of application. 
+ * 
+ * */
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class TextTransformerController {
@@ -43,6 +46,11 @@ public class TextTransformerController {
 
 	static Logger logger = LoggerFactory.getLogger(TextTransformerController.class);
 
+	
+	/**
+	 *@RequestParam string which we want to transform.
+	 * @Return transformed text
+	 * */
 	@RequestMapping("/transform")
 	public ResponseEntity<?> transform(@RequestParam(value = "text", required = false) String text,
 			@RequestParam(value = "function", required = false) String function) {
