@@ -19,10 +19,12 @@ export class TextfieldsComponent implements OnInit {
     'lower',
     'capitalize',
     'reverse',
-    'num2StringTransform',
+    'num2String',
     'abbreviate',
     'encode',
-    'decode'
+    'decode',
+    'encodeBinary',
+    'removeDuplicates'
   ]
 
   constructor(private textService: TextService) { }
