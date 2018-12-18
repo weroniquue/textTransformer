@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import textTransformers.models.Abbreviate;
 import textTransformers.models.Capitalize;
+import textTransformers.models.DecodeBinary;
 import textTransformers.models.DecodePassword;
 import textTransformers.models.Decorator;
 import textTransformers.models.EncodeBinary;
@@ -42,7 +43,7 @@ public class TextTransformerController {
 	private String message;
 
 	private List<String> availableFunctions = Arrays.asList("upper", "lower", "capitalize", "reverse", "num2String",
-			"abbreviate", "unAbbreviate", "encode", "decode", "encodeBinary", "removeDuplicates");
+			"abbreviate", "unAbbreviate", "encode", "decode", "encodeBinary","decodeBinary", "removeDuplicates");
 
 	static Logger logger = LoggerFactory.getLogger(TextTransformerController.class);
 
@@ -103,6 +104,9 @@ public class TextTransformerController {
 				break;
 			case "encodeBinary":
 				decorator = new EncodeBinary(decorator);
+				break;
+			case "decodeBinary":
+				decorator = new DecodeBinary(decorator);
 				break;
 			case "encode":
 				decorator = new EncodePassword(decorator);
