@@ -19,7 +19,7 @@ public class EncodeBinary extends Decorator{
             while (code.length() < 8) code = "0" + code;
             result = result + " " + code;
         }
-        return result;
+        return result.substring(1);
         
     }
 	
