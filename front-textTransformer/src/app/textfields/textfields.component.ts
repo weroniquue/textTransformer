@@ -24,6 +24,7 @@ export class TextfieldsComponent implements OnInit {
     'encode',
     'decode',
     'encodeBinary',
+    'decodeBinary',
     'removeDuplicates'
   ]
 
