@@ -16,9 +16,9 @@ public class DecodeBinary extends Decorator{
 	public String decodeBinary(String text)
     {
     	String result = "";
-    	for (int i = 0; i < text.length(); i+=9)
+    	for (int i = 0; i < text.length(); i+=10)
     	{
-    		String code = text.substring(i, i+8);
+    		String code = text.substring(i, i+9);
     		int number = Integer.parseInt(code, 2);
     		char letter = (char) number;
     		result = result + letter;

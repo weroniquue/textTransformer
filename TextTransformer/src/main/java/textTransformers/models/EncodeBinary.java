@@ -16,10 +16,11 @@ public class EncodeBinary extends Decorator{
     	String result = "";
         for (char c : text.toCharArray()){
             String code = Integer.toBinaryString(c);
-            while (code.length() < 8) code = "0" + code;
+            while (code.length() < 9) code = "0" + code;
             result = result + " " + code;
         }
-        return result.substring(1);
+//        return result.substring(1);
+        return result.trim();
         
     }
 	
