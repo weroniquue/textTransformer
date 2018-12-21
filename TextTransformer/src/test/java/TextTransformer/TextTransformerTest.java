@@ -12,15 +12,11 @@ import textTransformers.models.Reverse;
 import textTransformers.models.TextParser;
 import textTransformers.models.Uppercase;
 
+
+//TODO: usunąć ten plik
 public class TextTransformerTest {
 
 	private Decorator dec;
-	
-	private Abbreviate abr;
-	private Capitalize cap;
-	private Lowercase low;
-	private Reverse rev;
-	private Uppercase upc;
 	
 	@Before
 	public void setUp() {
@@ -36,7 +32,7 @@ public class TextTransformerTest {
 	@org.junit.Test
 	public void capitalizeTest() {
 		dec = new Capitalize(dec);
-		assertEquals("capitalize() error", dec.transform(), "Rozum i godność człowieka ");
+		assertEquals("capitalize() error", dec.transform(), "Rozum i godność człowieka");
 	}
 	
 	@org.junit.Test
