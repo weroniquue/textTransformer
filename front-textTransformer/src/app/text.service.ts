@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import { catchError, map, tap ,retry} from 'rxjs/operators';
 import {TextTransformed} from './models/text-transformed';
 
 const httpOptions = {
@@ -21,8 +21,7 @@ export class TextService {
 
   constructor(private http: HttpClient) { }
 
-  getOutputText(path: string): Observable<TextTransformed> {
+  getOutputText(path: string): Observable<any> {
     return this.http.get<TextTransformed>(this.URLname + path, httpOptions);
   }
-
 }
