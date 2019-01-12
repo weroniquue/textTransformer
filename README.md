@@ -1,0 +1,2 @@
+# textTransformer
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cd68338b4a00494894c6870f909714bd)](https://app.codacy.com/app/telkaka/textTransformer?utm_source=github.com&utm_medium=referral&utm_content=weroniquue/textTransformer&utm_campaign=Badge_Grade_Dashboard)
