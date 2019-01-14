@@ -14,7 +14,7 @@ public class Capitalize extends Decorator {
 
 	@Override
 	public String transform() {
-		return input.transform().substring(0, 1).toUpperCase() + input.transform().substring(1) + " ";
+		return input.transform().substring(0, 1).toUpperCase() + input.transform().substring(1);
 
 	}
 
