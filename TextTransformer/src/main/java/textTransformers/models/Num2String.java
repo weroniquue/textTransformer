@@ -39,6 +39,7 @@ public class Num2String extends Decorator{
 	
 	
 	private String num2str(int numberIn) {
+		if (numberIn == 0) return "zero";
 		int digitsHundreds = numberIn % 1000; // "......***"
 		numberIn /= 1000;
 		int digitsThousands = numberIn % 1000; // "...***..."
@@ -96,7 +97,15 @@ public class Num2String extends Decorator{
 			} else
 				resultMillions = resultMillions + " milionów";
 		}
-		return (resultMillions + " " + resultThousands + " " + resultHundreds).trim();
+		String result = (resultMillions + " " + resultThousands + " " + resultHundreds).trim();
+		int index = result.indexOf("  ");
+		while (index >= 0)
+		{
+			
+			result = result.substring(0,index) + result.substring(index+1);
+			index = result.indexOf("  ");
+		}
+		return result;
 	}
 
 
