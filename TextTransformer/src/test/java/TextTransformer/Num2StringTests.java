@@ -97,4 +97,24 @@ public class Num2StringTests {
 		assertEquals("dziewięćset dziewięćdziesiąt dziewięć milionów dziewięćset dziewięćdziesiąt dziewięć tysięcy dziewięćset dziewięćdziesiąt dziewięć",result);
 	}
 	
+	@Test
+	public void test9() {
+		when(mockParser.transform()).thenReturn("x 1 x2 x trzy");
+		Decorator dec = new Num2String(mockParser);
+		String result = dec.transform();
+		verify(mockParser).transform();
+		assertEquals("x jeden x2 x trzy",result);
+	}
+	
+	@Test
+	public void test10() {
+		when(mockParser.transform()).thenReturn("100 sto      100");
+		Decorator dec = new Num2String(mockParser);
+		String result = dec.transform();
+		verify(mockParser).transform();
+		assertEquals("sto sto      sto",result);
+	}
+	
+	
+	
 }
